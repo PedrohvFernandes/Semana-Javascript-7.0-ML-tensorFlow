@@ -1,6 +1,6 @@
 # Semana-Javascript-7.0
 
-Projeto desenvolvido durante a Semana Javascript 7.0, evento organizado por Erick Wendel(https://github.com/ErickWendel)
+Projeto desenvolvido durante a Semana Javascript 7.0, evento organizado por [Erick Wendel](https://github.com/ErickWendel)
 
 ## Sobre o projeto
 
