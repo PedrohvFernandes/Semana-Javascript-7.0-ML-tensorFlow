@@ -18,6 +18,7 @@ export default class Service {
   }
 
   // Calculate the position of eyelid to predict a blink
+  // Calculos matematicos, no class 02 a gente usa o fingerpose para que nos possamos abstrair isso
   #getEAR(upper, lower) {
     function getEucledianDistance(x1, y1, x2, y2) {
       return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))

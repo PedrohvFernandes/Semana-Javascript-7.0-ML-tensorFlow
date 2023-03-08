@@ -8,6 +8,9 @@ O projeto consiste em uma aplicação web a onde que é possivel usar a webcam c
 
 As funcionalidades iniciais fazendo gestos com a mão para mexer na tela é: descer a tela, clicar em algum elemento da tela, piscar os olhos para iniciar o video etc.
 
+## Certificado:
+
+
 ## Tecnologias utilizadas
 
 - HTML

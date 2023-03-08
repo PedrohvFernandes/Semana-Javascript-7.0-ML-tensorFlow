@@ -29,10 +29,13 @@ Marque esse projeto com uma estrela 🌟
   - [x] - Deve ser possivel de reproduzir ou pausar videos com o piscar de olhos 😁
   - [x] - Todo processamento de Machine Learning deve ser feito via Web worker
 
+## Desafio:
+
+  - [x] - Saber qual olho está piscando. Resolução do problema se encontra no video-player service.js
+  
 ### Considerações
 - Tire suas dúvidas sobre os desafios em nossa comunidade, o objetivo é você aprender de forma divertida. Surgiu dúvidas? Pergunte por lá!
-## Desafio:
-  - [x] - Saber qual olho está piscando. Resolução do problema se encontra no video-player service.js
+
 
 - Ao completar qualquer um dos desafios, envie no canal **#desafios** da comunidade no **Discord**
 

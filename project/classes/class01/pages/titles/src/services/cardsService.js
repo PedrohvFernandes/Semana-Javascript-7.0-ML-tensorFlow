@@ -15,12 +15,12 @@ export default class CardService {
     const titles = this.#database.filter(({ title }) =>
       !!keyword ? title.toLowerCase().includes(keyword.toLowerCase()) : true
     )
+
+    // Se tiver digitando algo, envia para o webworker
     if (keyword) {
-      // Se tiver digitando algo, envia para o webworker
-      this.#cardListWorker.postMessage({
-        maxItems: 1e5
-      })
+      this.#cardListWorker.postMessage({ maxItems: 1e5 })
     }
+
     const cards = titles.map(item => {
       return {
         background: item.imageUrl,

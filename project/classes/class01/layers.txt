@@ -1,0 +1,27 @@
+workers -> processo em segundo plano
+  -> toda logica PESADA (que envolva CPU)
+  -> tudo que pode travar a tela (for loop, machine learning, AI, processamento de Web CAM)
+  -> ele chama as regras de negocio da service
+
+services -> 
+  -> toda logica de negocio
+  -> toda chamada externa (API, arquivos, bancos de dados)
+
+views ->
+  -> toda iteração com o DOM (com o HTML, com a pagina)
+
+controllers
+  -> é a intermediaria entre (services e/ou workers) e views. Ele é quem vai fazer o de la pra ca
+
+factories ->
+  -> a factory é quem importa as dependencias
+  -> e cria o objeto final(service passando o "DB" para ele e o controller) para fazermos as chamadas 
+  -> retorna a função que inicializa o fluxo daquele componente (init)
+
+index.js -> é responsável por chamar todas as camadas 
+
+ai pode usar as layers com pastas(titles) ou sem(video-player), usando somente o arquivo
+
+nesse caso do video-player, a gente tem dois casos nele em que pode usar uma worker ou um mockWorker, so que tanto a worker quanto a mockWorker tem a mesma "interface"/os mesmos contratos(metodos), então a gente usa o factory para criar a worker e a mockWorker atraves de um metodo, e a factory vai retornar a worker ou a mockWorker dependendo do navegador que a gente está rodando para a controller, porque as vezes ele pode ou não suportar rodar a worker como type module. E se ele suportar o worker ele vai utilizar a service nele, se não usa a service direto na factory. Passando somente para a controller uma worker, e ele não sabe qual vai esta utilizando, porque tanto um como outro usa os mesmos contratos, so que de maneiras diferentes.
+
+So que no caso do cardlist passamos a service para o controller e nela passamos a worker.

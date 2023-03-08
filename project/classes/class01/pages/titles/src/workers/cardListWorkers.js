@@ -1,7 +1,7 @@
 // Recebe msg do service, no caso o maxItems
 onmessage = ({ data }) => {
   let counter = 0
-  let maxItems = data.maxItems
+  const maxItems = data.maxItems
   console.log('activating blocking operation...', maxItems)
   console.time('blocking-op')
   // blocking function
@@ -10,8 +10,7 @@ onmessage = ({ data }) => {
   console.timeEnd('blocking-op')
 
   // Envia msg para o service
-  postMessage({
-    response: 'READY worker cards list',
-    data: counter
-  })
+  postMessage(
+    { response: 'READY worker cards list', data: counter }
+  )
 }
