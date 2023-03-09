@@ -37,20 +37,48 @@ export default class HandGestureController {
     this.#view.scrollPage(this.#lastDirection.y)
   }
 
+  #handSelection({ handDirection, gestureStrings, hands }) {
+    if (hands.length === 1) {
+      this.#view.resetRenderDirection(handDirection)
+    }
+    this.#view.render({ handDirection, gestureStrings })
+  }
+
   async #estimateHands() {
     try {
       // Vamos pegar os dados das mãos e la no service nos tratamos esses dados
       const hands = await this.#service.estimateHands(this.#camera.video)
+      if (!hands.length) {
+        this.#view.resetRender()
+        return
+      }
+      // for(const hand of hands) {
+      //   console.log(hands)
+      //   console.log(hand.handedness)
+      //   this.#renderPage(hand.handedness)
+      // }
+
       // Vamos ler os dados sob demanda, por conta que detectGesture é uma função interetator, la no service e ele ja nos devolve um objeto com o event que é result.name, x e y
-      for await (const { event, x, y } of this.#service.detectGestures(hands)) {
+      for await (const {
+        event,
+        x,
+        y,
+        handDirection,
+        gestureStrings,
+        gestureStringsObject
+      } of this.#service.detectGestures(hands)) {
         // console.log({ gesture })
         // console.log({ event, x, y })
-        // this.#view.render(event, x, y)
         // Se no event contem scroll, executa o scrollPage, passando o event, ou melhor dizendo a direção
         if (event.includes('scroll')) {
           if (!scrollShouldRun()) return // não executa mais do que 200ms
           this.#scrollPage(event)
         }
+        this.#handSelection({
+          handDirection,
+          gestureStrings,
+          hands
+        })
       }
     } catch (error) {
       console.error('Deu ruim**', error)

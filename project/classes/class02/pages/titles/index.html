@@ -6,10 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Streaming Service</title>
     <link rel="stylesheet" href="./lib/index.css" />
+    <style>
+      .layer {
+        position: fixed;
+        top: -80;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+      }
+      .pose-result {
+        font-size: 100px;
+        text-align: right;
+        padding: 20px 30px 0 0;
+      }
+
+      #pose-result-left {
+        text-align: left;
+      }
+    </style>
   </head>
 
   <body id="body">
     <div class="content">
+      <!-- As img ou emojis como resultado de cada gesto que você faz com a mão -->
+      <div id="pose-result-left" class="layer pose-result"></div>
+      <div id="pose-result-right" class="layer pose-result"></div>
       <div class="header">
         <div class="brand">
           <h1 class="green">JSExpert</h1>

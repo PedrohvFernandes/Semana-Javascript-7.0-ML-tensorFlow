@@ -26,7 +26,7 @@ export default class HandGestureService {
   // Async interator, ele vai retornar o valor a medida que ele vai sendo chamado
   // Função para validar se esta funcionando
   // Eu recebo o retorno do tensorflow, que estava sendo logado na função estimateHands do service, usado la no controller. Com esse retorno mandamos as hands que contem cada mão, com os seus keypoints3D la do controller para o fp atraves daqui usando a função estimate usada na controller e o fp vai retornar o resultado na função estime, ja com os gestos pre setados la no util/gestures.js e passados aqui no service diretamente no FP que recebemos la da factory e usamos na gestureEstimator que é usada na estimate
-  async * detectGestures(predictions) {
+  async *detectGestures(predictions) {
     // Cada mão que foi passada la no controller, por uma função daqui estimateHands
     for (const hand of predictions) {
       if (!hand.keypoints3D) continue
@@ -44,9 +44,16 @@ export default class HandGestureService {
       )
       // O result.name retorna pra a gente o nome do gesto, lembrando que ele retorna mais coisas da lib fp. O name vai servir como chave, para ele retornar o valor que esta na chave gestureString, uma img, um emoji etc
       console.log('detected: ', gestureStrings[result.name], x, y)
-
+      console.log(hand)
       // Iremos usar algo de uma função interator: yield, que vai retornar o valor a medida que ele for sendo chamado. Passei na primeira interação, encontrei o item e vamos retornar para quem chamou e depois ele faz o proximo for e assim por diante. O yield é usado para retornar um valor a medida que ele for sendo chamado. Aqui ne caso é quando fizermos um gesto, ele vai retornar o nome do gesto, a posição x e y
-      yield {event: result.name, x, y}
+      yield {
+        event: result.name,
+        x,
+        y,
+        handDirection: hand.handedness.toLowerCase(),
+        gestureStrings: gestureStrings[result.name],
+        gestureStringsObject: gestureStrings
+      }
     }
   }
 
