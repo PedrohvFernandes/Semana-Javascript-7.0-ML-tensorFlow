@@ -1,4 +1,8 @@
 import { knowGestures, gestureStrings } from '../util/gestures.js'
+
+// Essa lista faz parte da logica para fazer o dont
+const pair = new Set() // é uma lista que não aceita repetição
+
 export default class HandGestureService {
   // O fp passado la na factorie
   #gestureEstimator
@@ -8,6 +12,15 @@ export default class HandGestureService {
   #handsVersion
   // Futuro detector de gestos usado la em baixo em initializeDetector
   #detector = null
+
+  #base = ['Horizontal ', 'Diagonal Up ']
+  #dont = {
+    // Mão esquerda pro lado direito
+    left: [...this.#base].map(i => i.concat('Right')),
+    // Mão direita pro lado esquerdo
+    right: [...this.#base].map(i => i.concat('Left'))
+  }
+
   constructor({ fingerpose, handPoseDetection, handsVersion }) {
     this.#gestureEstimator = new fingerpose.GestureEstimator(knowGestures)
     this.#handPoseDetection = handPoseDetection
@@ -20,7 +33,28 @@ export default class HandGestureService {
       // Porcentagem de confiança do geto(90%) que ele tem que ter para retornar o resultado
       9
     )
-    return predictions.gestures
+    return { gestures: predictions.gestures, poseData: predictions.poseData }
+  }
+
+  // Verifica se tem as duas mãos e se estão fazendo o mesmo gesto
+  #checkGestureCombination(chosenHand, poseData) {
+    console.log({ 'ChoseHand: ': chosenHand, 'Pose data: ': poseData })
+    const addToPairIfCorrect = chosenHand => {
+      const containsHand = poseData.some(finger => {
+        console.log('finger ', finger)
+        console.log(this.#dont[chosenHand])
+        return this.#dont[chosenHand].includes(finger[2])
+      })
+
+      if (!containsHand) return
+      pair.add(chosenHand)
+    }
+
+    addToPairIfCorrect(chosenHand)
+    // O tamanho do pair tem que ser dois, ou seja duas mãos left e right
+    // Se estiver com as duas mãos ele coloca o emoji dont na tela la na view
+    console.log(gestureStrings.dont)
+    return pair
   }
 
   // Async interator, ele vai retornar o valor a medida que ele vai sendo chamado
@@ -31,9 +65,11 @@ export default class HandGestureService {
     for (const hand of predictions) {
       if (!hand.keypoints3D) continue
 
-      const gestures = await this.estimate(hand.keypoints3D)
+      const { gestures, poseData } = await this.estimate(hand.keypoints3D)
+
       if (!gestures.length) continue // Se nao tiver nenhum gesto, ele vai continuar, não retorna nada
       // console.log({gestures})
+
       const result = gestures.reduce((previous, current) => {
         return previous.score > current.score ? previous : current
       })
@@ -42,18 +78,34 @@ export default class HandGestureService {
       const { x, y } = hand.keypoints.find(
         keypoint => keypoint.name === 'index_finger_tip'
       )
+      let event = result.name
+      let handDirection = hand.handedness.toLowerCase()
+
       // O result.name retorna pra a gente o nome do gesto, lembrando que ele retorna mais coisas da lib fp. O name vai servir como chave, para ele retornar o valor que esta na chave gestureString, uma img, um emoji etc
-      console.log('detected: ', gestureStrings[result.name], x, y)
-      console.log(hand)
+      // console.log('detected: ', gestureStrings[result.name], x, y)
+      // console.log(hand)
       // Iremos usar algo de uma função interator: yield, que vai retornar o valor a medida que ele for sendo chamado. Passei na primeira interação, encontrei o item e vamos retornar para quem chamou e depois ele faz o proximo for e assim por diante. O yield é usado para retornar um valor a medida que ele for sendo chamado. Aqui ne caso é quando fizermos um gesto, ele vai retornar o nome do gesto, a posição x e y
+
       yield {
-        event: result.name,
+        event: event,
         x,
         y,
-        handDirection: hand.handedness.toLowerCase(),
+        handDirection: handDirection,
         gestureStrings: gestureStrings[result.name],
-        gestureStringsObject: gestureStrings
+        gestureStringsObject: gestureStrings,
+        // Um metodo de combinação de duas mãos pra fazer o dont
+        // Verifica se tem as duas mãos e se estão fazendo o mesmo gesto, preenchendo o pair
+        dontGesturePair: this.#checkGestureCombination(handDirection, poseData)
       }
+
+      // yield {
+      //   event: event,
+      //   x,
+      //   y,
+      //   handDirection: handDirection,
+      //   gestureStrings: gestureStrings[result.name],
+      //   gestureStringsObject: gestureStrings
+      // }
     }
   }
 
@@ -67,6 +119,7 @@ export default class HandGestureService {
       flipHorizontal: true
     })
   }
+
   async initializeDetector() {
     // Se ele ja tiver sido inicializado, ele nao vai inicializar de novo, passando o que tem nele
     if (this.#detector) return this.#detector

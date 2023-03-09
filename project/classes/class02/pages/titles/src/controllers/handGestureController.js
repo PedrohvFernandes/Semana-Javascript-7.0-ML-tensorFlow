@@ -37,11 +37,25 @@ export default class HandGestureController {
     this.#view.scrollPage(this.#lastDirection.y)
   }
 
-  #handSelection({ handDirection, gestureStrings, hands }) {
+  #handSelection({
+    handDirection,
+    gestureStrings,
+    gestureStringsObject,
+    event,
+    hands,
+    dontGesturePair
+  }) {
     if (hands.length === 1) {
       this.#view.resetRenderDirection(handDirection)
     }
-    this.#view.render({ handDirection, gestureStrings })
+
+    this.#view.render({
+      handDirection,
+      gestureStrings,
+      gestureStringsObject,
+      event,
+      dontGesturePair
+    })
   }
 
   async #estimateHands() {
@@ -65,7 +79,8 @@ export default class HandGestureController {
         y,
         handDirection,
         gestureStrings,
-        gestureStringsObject
+        gestureStringsObject,
+        dontGesturePair
       } of this.#service.detectGestures(hands)) {
         // console.log({ gesture })
         // console.log({ event, x, y })
@@ -77,7 +92,10 @@ export default class HandGestureController {
         this.#handSelection({
           handDirection,
           gestureStrings,
-          hands
+          gestureStringsObject,
+          event,
+          hands,
+          dontGesturePair
         })
       }
     } catch (error) {

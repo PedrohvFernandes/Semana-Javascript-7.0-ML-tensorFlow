@@ -15,17 +15,33 @@ export default class HandGestureView {
     })
   }
 
-  render({ handDirection, gestureStrings }) {
-    this.#resultLayer[handDirection].innerText = gestureStrings
+  // Render para todos os gestos
+  render({
+    handDirection,
+    gestureStrings,
+    gestureStringsObject,
+    event,
+    dontGesturePair
+  }) {
+    if (gestureStringsObject[event] !== gestureStringsObject.dont) {
+      this.#resultLayer[handDirection].innerText = gestureStrings
+    }
+    if (gestureStringsObject[event] === gestureStringsObject.dont) {
+      if (dontGesturePair.size === 2) {
+        this.#resultLayer.left.innerText = this.#resultLayer.right.innerText =
+          gestureStringsObject.dont
+        dontGesturePair.clear()
+      }
+    }
   }
 
-  // Combinação de gestos Dont
-
+  // Rseta tudo caso não tenha nenhuma mão
   resetRender() {
     this.#resultLayer.right.innerText = ''
     this.#resultLayer.left.innerText = ''
   }
 
+  // Resetar a direção da mão
   resetRenderDirection(direction) {
     if (direction === 'right') {
       this.#resultLayer.left.innerText = ''

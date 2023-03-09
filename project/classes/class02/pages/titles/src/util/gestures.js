@@ -1,9 +1,10 @@
-const { GestureDescription, Finger, FingerCurl } = window.fp
+const { GestureDescription, Finger, FingerCurl, FingerDirection } = window.fp
 
 const ScrollDownGesture = new GestureDescription('scroll-down') // ✊️
 const ScrollUpGesture = new GestureDescription('scroll-up') // 🖐
 const RockAndRollGesture = new GestureDescription('rock-and-roll') // 🤘
 const scissorsGesture = new GestureDescription('scissors') // ✂️
+const dontGesture = new GestureDescription('dont') // 🙅‍♂️
 
 // Com esses gestos não precisamos fazer calculos matematicos, somente delegar o canto que o dedo vai estar fechado com fingercurl, qual dedo finger.dedo, quais os dedos e com isso passar la no service pro fp, para saber os gestos que foram definidos aqui. Ou seja, montando as regras como humando, falando que se o dedão estiver mais curvado é pra fazer isso, ou se estiver mais aberto aquilo
 
@@ -33,7 +34,6 @@ for (let finger of Finger.all) {
 // -----------------------------------------------------------------------------
 for (let finger of [Finger.Thumb, Finger.Index, Finger.Pinky]) {
   RockAndRollGesture.addCurl(finger, FingerCurl.NoCurl, 0.9)
-
 }
 // all other fingers: curled
 for (let finger of [Finger.Middle, Finger.Ring]) {
@@ -55,11 +55,31 @@ scissorsGesture.addCurl(Finger.Ring, FingerCurl.HalfCurl, 0.9)
 scissorsGesture.addCurl(Finger.Pinky, FingerCurl.FullCurl, 1.0)
 scissorsGesture.addCurl(Finger.Pinky, FingerCurl.HalfCurl, 0.9)
 
-const knowGestures = [ScrollDownGesture, ScrollUpGesture, RockAndRollGesture, scissorsGesture]
+// Dont 🙅‍♂️
+// -----------------------------------------------------------------------------
+for (let finger of Finger.all) {
+  dontGesture.addCurl(finger, FingerCurl.NoCurl, 1.0)
+  dontGesture.addCurl(finger, FingerCurl.HalfCurl, 0.8)
+
+  dontGesture.addDirection(finger, FingerDirection.DiagonalUpRight, 1.0)
+  dontGesture.addDirection(finger, FingerDirection.DiagonalUpLeft, 1.0)
+
+  dontGesture.addDirection(finger, FingerDirection.HorizontalRight, 1.0)
+  dontGesture.addDirection(finger, FingerDirection.HorizontalLeft, 1.0)
+}
+
+const knowGestures = [
+  ScrollDownGesture,
+  ScrollUpGesture,
+  RockAndRollGesture,
+  scissorsGesture,
+  dontGesture
+]
 const gestureStrings = {
   'scroll-up': '🖐',
   'scroll-down': '✊️',
   'rock-and-roll': '🤘',
   'scissors': '✂️',
+  'dont': '🙅‍♂️'
 }
 export { knowGestures, gestureStrings }
