@@ -43,9 +43,11 @@ export default class Controller {
       const dataBlinked = data.blinked
 
       const blinked = dataBlinked.blinkedTwoEyes
-      this.#blinkCounter += blinked
+      const eye = dataBlinked.eye === 'leftEye' ? true : true
+      this.#blinkCounter += blinked || eye
+
       this.#eyeBlinked = dataBlinked.eyeBlinked
-      this.#view.toggleVideo(dataBlinked.eye )
+      this.#view.toggleVideo(dataBlinked.eye)
     }
 
     return {

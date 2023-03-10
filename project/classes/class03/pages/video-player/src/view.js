@@ -22,7 +22,6 @@ export default class View {
   }
 
   toggleVideo(eye) {
-    console.log(typeof eye)
     if (eye === 'leftEye') {
       this.#videoElement.currentTime -= 10
       return
