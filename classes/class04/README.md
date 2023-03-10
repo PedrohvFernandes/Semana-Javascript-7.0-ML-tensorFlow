@@ -11,6 +11,10 @@ Marque esse projeto com uma estrela 🌟
 
 - Este projeto foi criado usando Node.js v19.6
 
+## Live demo
+
+- Para testar o projeto final [clique aqui](https://erickwendel.github.io/semana-javascript-expert07/classes/class04/)
+
 ## Running
 
 - Execute `npm ci` para restaurar os pacotes
@@ -23,17 +27,18 @@ Marque esse projeto com uma estrela 🌟
   - [x] - Deve disparar scroll up quando usar a palma das mãos abertas 🖐
   - [x] - Deve disparar scroll down quando usar a palma das mãos fechadas ✊
   - [x] - Deve disparar click no elemento mais próximo quando usar  gesto de pinça 🤏🏻
-  - [] - Ao mover elementos na tela, deve disparar evento **:hover** em elementos em contexto
+  - [x] - Ao mover elementos na tela, deve disparar evento **:hover** em elementos em contexto
 
 - Video Player
   - [x] - Deve ser possivel de reproduzir ou pausar videos com o piscar de olhos 😁
   - [x] - Todo processamento de Machine Learning deve ser feito via Web worker
 
-## Desafio:
-
-- [x] - Colocar o z-index tanto pelo js, quanto pelo css nas mãos para clicar em elementos que estão atrás das mãos
-- [x] - Colocar os gestões das mãos parte do video-player
-- [x] - Pausando com os dois olhos, logando se é o esquerdo(diminuir), direito(aumentar) ou se foi os dois ao mesmo tempo(pausar), adiantando o video com o olho direito e voltando com o olho esquerdo
+### Desafios
+- [X] - Aula 01 - Diferenciar piscada de olhos entre olho direito e esquerdo e atualizar log para mostrar qual olho que piscou.
+- [X] - Aula 02 - Reconhecer gestos de mãos individuais e printar no log
+- [] - Aula 03 - Corrigir Banner de titulo de video, para ficar atrás do desenho das mãos e se tornar clicável
+- [X] - Aula 04 - Usar as mãos virtuais também no Video Player
+- Desafio Plus: cobrir o projeto com 100% de code coverage
 
 ### Considerações
 - Tire suas dúvidas sobre os desafios em nossa comunidade, o objetivo é você aprender de forma divertida. Surgiu dúvidas? Pergunte por lá!
