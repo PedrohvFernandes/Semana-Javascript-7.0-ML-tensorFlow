@@ -9,7 +9,7 @@ O projeto consiste em uma aplicação web a onde que é possivel usar a webcam c
 As funcionalidades iniciais fazendo gestos com a mão para mexer na tela é: descer a tela, clicar em algum elemento da tela, piscar os olhos para iniciar o video etc.
 
 ## Certificado:
-
+<img width=100% src="./project/assets/Certificado.png">
 
 ## Tecnologias utilizadas
 
@@ -20,6 +20,11 @@ As funcionalidades iniciais fazendo gestos com a mão para mexer na tela é: des
   - Tensorflow.js
     - Mediapipe
 - [pseudo-styler](https://github.com/TSedlar/pseudo-styler)
+
+## Como executar o projeto
+- `` npm i ``
+- `` npm run start ``
+- Tenha uma camera conectada ao pc/notebook e permita o acesso a ela
 
 
 ## 👨‍💻 Autor:
