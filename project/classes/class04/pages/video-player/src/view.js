@@ -64,9 +64,13 @@ export default class View {
   }
 
   render(data){
-    this.#elementWorkerReadySpan.innerHTML = ` ${data}`
+    this.#elementWorkerReadySpan.innerHTML = ` ${data}. Agora aperte no botão "Initialize Blink Recognition"`
     if(data === ''){
       this.#elementWorkerReady.innerHTML = data
     }
+  }
+
+  setVideoSrc(url){
+    this.#videoElement.src = url
   }
 }

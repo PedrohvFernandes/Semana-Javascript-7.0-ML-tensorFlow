@@ -8,6 +8,10 @@
     <style>
       body {
         background-color: darkgray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       video {
         width: 95%;
@@ -97,12 +101,16 @@
         margin-left: 20px;
       }
 
-      #workerReady{
+      #workerReady {
         color: brown;
       }
 
-      #workerReadySpan{
+      #workerReadySpan {
         color: aquamarine;
+      }
+
+      #video {
+        width: 80%;
       }
     </style>
   </head>
@@ -129,7 +137,11 @@
           somente com o f5. Porque as vezes a lib tensorflow não consegue
           injetar as dependencias no html, ou seja baixa-las.
         </p>
-        <p id="workerReady">Quando carregar o modelo do tensorflow ira aparecer um msg aqui:<span id="workerReadySpan"></span> </p>
+        <p id="workerReady">
+          Quando carregar o modelo do tensorflow ira aparecer um msg aqui:<span
+            id="workerReadySpan"
+          ></span>
+        </p>
         <div id="instruction">
           <p>1º Piscando com os dois olhos o video da play ou pause</p>
           <p>2º Piscando com o olho esquerdo, o video volta 10 sec</p>
@@ -147,7 +159,9 @@
     <!-- As img ou emojis como resultado de cada gesto que você faz com a mão -->
     <div id="pose-result-left" class="layer pose-result"></div>
     <div id="pose-result-right" class="layer pose-result"></div>
-    <video id="video" src="/assets/video.mp4" controls></video>
+    <!-- Inserindo o video pela factory -->
+    <!-- <video id="video" src="/assets/video.mp4" controls></video> -->
+    <video id="video" controls></video>
     <script src="https://cdn.jsdelivr.net/gh/TSedlar/pseudo-styler@1.0.8/pseudostyler.js"></script>
     <script src="./src/index.js" type="module"></script>
   </body>

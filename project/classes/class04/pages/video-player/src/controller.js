@@ -11,6 +11,7 @@ export default class Controller {
 
     // O bind é necessário para que o onBtnStart seja executado no contexto do Controller
     this.#view.configureOnBtnClick(this.onBtnStart.bind(this))
+    // this.#view.setVideoSrc(videoUrl)
   }
 
   static async initialize(deps) {
