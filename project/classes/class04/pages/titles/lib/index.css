@@ -1205,29 +1205,3 @@ a {
   /* fica à frente dos elementos */
   z-index: 2;
 }
-
-.layer {
-  width: 30%;
-  
-}
-.layer-right {
-  position: fixed;
-  right: 0;
-  top: 120px;
-  z-index: 100;
-}
-.layer-left {
-  position: fixed;
-  left: 0;
-  top: 120px;
-  z-index: 100;
-}
-.pose-result {
-  font-size: 100px;
-  text-align: right;
-  padding: 20px 30px 0 0;
-}
-
-#pose-result-left {
-  text-align: left;
-}
