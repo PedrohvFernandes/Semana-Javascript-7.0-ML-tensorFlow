@@ -34,7 +34,7 @@ Marque esse projeto com uma estrela 🌟
 
 ## Desafio:
 
-- [x] - Fazer o gesto do rockandroll com uma so mão 🤘🏻, aparecer os gesto na tela e usar os dois braços
+- [x] - Fazer o gesto do rockandroll com uma so mão 🤘🏻, aparecer os gesto na tela e usar os dois braços para fazer algum gesto
 
 ### Considerações
 

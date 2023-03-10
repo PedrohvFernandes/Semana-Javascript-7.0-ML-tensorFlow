@@ -52,8 +52,13 @@ export default class HandGestureService {
 
     addToPairIfCorrect(chosenHand)
     // O tamanho do pair tem que ser dois, ou seja duas mãos left e right
-    // Se estiver com as duas mãos ele coloca o emoji dont na tela la na view
+    // Se estiver com as duas mãos ele coloca o emoji dont na tela la na view e aqui no log
+    // A validaçao do tamanho do pair fizemos direto na view, mas aqui no service podemos fazer tbm
+    // if (pair.size !== 2) return
     console.log(gestureStrings.dont)
+    // resultLayer.left.innerText = resultLayer.right.innerText =
+    // gestureStrings.dont
+    // pair.clear()
     return pair
   }
 
