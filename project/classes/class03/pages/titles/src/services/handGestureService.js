@@ -1,6 +1,5 @@
 // Essa lista faz parte da logica para fazer o dont
 const pair = new Set() // é uma lista que não aceita repetição
-
 export default class HandGestureService {
   // O fp passado la na factorie
   #gestureEstimator
@@ -48,7 +47,7 @@ export default class HandGestureService {
     // console.log({ 'ChoseHand: ': chosenHand, 'Pose data: ': poseData })
     const addToPairIfCorrect = chosenHand => {
       const containsHand = poseData.some(finger => {
-        // console.log('finger ', finger)
+        console.log('finger ', finger[2])
         // console.log(this.#dont[chosenHand])
         return this.#dont[chosenHand].includes(finger[2])
       })
@@ -61,14 +60,12 @@ export default class HandGestureService {
     // O tamanho do pair tem que ser dois, ou seja duas mãos left e right
     // Se estiver com as duas mãos ele coloca o emoji dont na tela la na view e aqui no log
     // A validaçao do tamanho do pair fizemos direto na view, mas aqui no service podemos fazer tbm
-    console.log('Antes da validação: ',pair)
     if (pair.size !== 2) return
     console.log(this.#gestureStrings.dont)
-    console.log('Momento da validação: ',pair)
     // resultLayer.left.innerText = resultLayer.right.innerText =
     // this.#gestureStrings.dont
+    console.log(poseData)
     pair.clear()
-    console.log('depois de limpar  ', pair)
     return this.#gestureStrings.dont
   }
 
@@ -109,8 +106,6 @@ export default class HandGestureService {
           handDirection: handDirection,
           gestureStrings: this.#gestureStrings[result.name],
           gestureStringsObject: this.#gestureStrings
-          // Um metodo de combinação de duas mãos pra fazer o dont
-          // Verifica se tem as duas mãos e se estão fazendo o mesmo gesto, preenchendo o pair
         }
         continue
       }
@@ -122,6 +117,8 @@ export default class HandGestureService {
         handDirection: handDirection,
         gestureStrings: this.#gestureStrings[result.name],
         gestureStringsObject: this.#gestureStrings,
+        // Um metodo de combinação de duas mãos pra fazer o dont
+        // Verifica se tem as duas mãos e se estão fazendo o mesmo gesto, preenchendo o pair
         dontGesture
       }
     }

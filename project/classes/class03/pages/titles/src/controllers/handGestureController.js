@@ -93,7 +93,7 @@ export default class HandGestureController {
           this.#view.clickOnElement(x, y)
         }
         if(dontGesture === gestureStringsObject[event]){
-          this.#view.renderDont({dontGesture, gestureStringsObject, event})
+          this.#view.renderDont({dontGesture, hands, handDirection})
         }
         // console.log({ gesture })
         // console.log({ event, x, y })
