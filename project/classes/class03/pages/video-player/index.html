@@ -1,36 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSExpert Max - BlinkToPlay</title>
+    <style>
+      body {
+        background-color: darkgray;
+      }
+      video {
+        width: 95%;
+        margin: 10px;
+      }
+      button {
+        margin: 10px;
+      }
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-left: 20px;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSExpert Max - BlinkToPlay</title>
-  <style>
-    video {
-      width: 95%;
-      margin: 10px;
-    }
-    button {
-      margin: 10px;
-    }
-    .button-container {
-      display: flex;
-      justify-content: center;
-      margin-left: 20px;
-    }
-  </style>
-</head>
+      #hands {
+        pointer-events: none;
+        position: fixed;
+        z-index: 12;
+      }
 
-<body>
-  <div class="button-container">
-    <div>
-      <button type="button" id="init" disabled>Initialize Blink Recognition</button>
-      <output id='status'></output>
+      .layer {
+        position: fixed;
+        top: -80;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+      }
+      .pose-result {
+        font-size: 100px;
+        text-align: right;
+        padding: 20px 30px 0 0;
+      }
+
+      #pose-result-left {
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="hands"></canvas>
+    <div class="button-container">
+      <div>
+        <button type="button" id="init" disabled>
+          Initialize Blink Recognition
+        </button>
+        <output id="status"></output>
+      </div>
     </div>
-  </div>
-  <video id="video" src="/assets/video.mp4" controls></video>
-  <script src="./src/index.js" type="module"></script>
-</body>
-
+    <!-- As img ou emojis como resultado de cada gesto que você faz com a mão -->
+    <div id="pose-result-left" class="layer pose-result"></div>
+    <div id="pose-result-right" class="layer pose-result"></div>
+    <video id="video" src="/assets/video.mp4" controls></video>
+    <script src="./src/index.js" type="module"></script>
+  </body>
 </html>

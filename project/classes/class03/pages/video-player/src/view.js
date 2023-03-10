@@ -21,14 +21,28 @@ export default class View {
     return this.#canvasContext.getImageData(0, 0, width, height)
   }
 
-  togglePlayPause(){
-    if(this.#videoElement.paused){
-      this.#videoElement.play()
+  toggleVideo(eye) {
+    console.log(typeof eye)
+    if (eye === 'leftEye') {
+      this.#videoElement.currentTime -= 10
       return
     }
-    this.#videoElement.pause()
+
+    if (eye === 'rightEye') {
+      this.#videoElement.currentTime += 10
+      return
+    }
+
+    if (eye === 'right and left') {
+      if (this.#videoElement.paused) {
+        this.#videoElement.play()
+        return
+      }
+
+      this.#videoElement.pause()
+    }
   }
-  
+
   enableButton() {
     // this.#btnInit.removeAttribute('disabled')
     this.#btnInit.disabled = false

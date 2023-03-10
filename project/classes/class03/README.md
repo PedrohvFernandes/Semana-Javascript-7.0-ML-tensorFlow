@@ -31,7 +31,9 @@ Marque esse projeto com uma estrela 🌟
 
 ## Desafio:
 
-- [x] - Colocar o z-index nas mãos para clicar em elementos que estão atrás das mãos
+- [x] - Colocar o z-index tanto pelo js, quanto pelo css nas mãos para clicar em elementos que estão atrás das mãos
+- [x] - Colocar os gestões das mãos parte do video-player
+- [x] - Pausando com os dois olhos, logando se é o esquerdo(diminuir), direito(aumentar) ou se foi os dois ao mesmo tempo(pausar), adiantando o video com o olho direito e voltando com o olho esquerdo
 
 ### Considerações
 - Tire suas dúvidas sobre os desafios em nossa comunidade, o objetivo é você aprender de forma divertida. Surgiu dúvidas? Pergunte por lá!

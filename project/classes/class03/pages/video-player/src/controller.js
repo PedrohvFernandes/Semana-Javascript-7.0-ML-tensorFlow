@@ -42,10 +42,10 @@ export default class Controller {
       // Se fosse um array vindo da service: blinked = data.blinked[0] e eyeBlinked = data.blinked[1]
       const dataBlinked = data.blinked
 
-      const blinked = dataBlinked.blinked
+      const blinked = dataBlinked.blinkedTwoEyes
       this.#blinkCounter += blinked
       this.#eyeBlinked = dataBlinked.eyeBlinked
-      this.#view.togglePlayPause()
+      this.#view.toggleVideo(dataBlinked.eye )
     }
 
     return {

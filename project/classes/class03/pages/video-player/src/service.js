@@ -1,7 +1,7 @@
 import { prepareRunChecker } from '../../../lib/shared/util.js'
 const { shouldRun } = prepareRunChecker({ timerDelay: 500 })
 
-const EAR_THRESHOLD = 0.2
+const EAR_THRESHOLD = 0.20
 export default class Service {
   #model = null
   #faceLandmarksDetection
@@ -46,6 +46,14 @@ export default class Service {
     )
   }
 
+  async #whatEyeBlinked(isRightEARblinked, isLeftEARblinked, blinkedTwoEyes) {
+    if (blinkedTwoEyes) return 'right and left'
+    if (isLeftEARblinked) return 'leftEye'
+    if (isRightEARblinked) return 'rightEye'
+
+    return false
+  }
+
   async handBlinked(video) {
     const predictions = await this.#estimateFaces(video)
     if (!predictions.length) return false
@@ -60,24 +68,37 @@ export default class Service {
       const upperLeft = prediction.annotations.leftEyeLower0
       const leftEAR = this.#getEAR(upperLeft, lowerLeft)
 
-      const isLeftEARblinked = leftEAR <= EAR_THRESHOLD
-      const isRightEARblinked = rightEAR <= EAR_THRESHOLD
+      // Para aparecer no log e para adiantar ou voltar o video por 10 segundos
+      const isLeftEARblinked =
+        leftEAR <= EAR_THRESHOLD && rightEAR >= EAR_THRESHOLD
+      const isRightEARblinked =
+        rightEAR <= EAR_THRESHOLD && leftEAR >= EAR_THRESHOLD
+      // Para pausar precisa piscar os dois olhos
+      const blinkedTwoEyes =
+        rightEAR <= EAR_THRESHOLD && leftEAR <= EAR_THRESHOLD
 
+      const eye = await this.#whatEyeBlinked(
+        isRightEARblinked,
+        isLeftEARblinked,
+        blinkedTwoEyes
+      )
       // True if the eye is closed
       // const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD
       // const blinked = leftEAR <= EAR_THRESHOLD || rightEAR <= EAR_THRESHOLD
-      const blinked = isLeftEARblinked || isRightEARblinked
-      
+      // const blinked = isLeftEARblinked || isRightEARblinked
 
-      if (!blinked) continue
+      // if (!blinked) continue
+      // if (!blinkedTwoEyes) continue
+      if (!eye) continue
       if (!shouldRun()) continue
+
       // this.#checkClosedEye(leftEAR, rightEAR)
       // Ja poderia dar o console por aqui, mas decidi passar para a controller, porque la nos temos o log
       // console.log(this.#checkClosedEye(isRightEARblinked, isLeftEARblinked))
-      let eyeBlinked = this.#checkClosedEye(isRightEARblinked, isLeftEARblinked)
-      
+      let eyeBlinked = this.#checkClosedEye(eye)
+
       // return [blinked, eyeBlinked]
-      return {blinked, eyeBlinked}
+      return { blinkedTwoEyes, eyeBlinked, eye }
 
       //)
     }
@@ -94,9 +115,10 @@ export default class Service {
   //   }
   // }
 
-  #checkClosedEye(right, left) {
-    const eyeBlinked = `${right ? 'right' : ''} ${left ? 'left' : ''}`
-    return eyeBlinked
+  #checkClosedEye(eye) {
+    const eyeBlinked = `${eye ===  'leftEye' ? eye : ''} ${eye === 'rightEye' ? eye : ''}`
+    const eyeBlinkedTwoEyes = `${eye === "right and left" ? eye : ''}`
+    return `${eye === "right and left" ? eyeBlinkedTwoEyes : eyeBlinked}`
   }
 
   // Config para o modelo de reconhecimento facial

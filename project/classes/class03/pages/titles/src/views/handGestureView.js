@@ -60,6 +60,7 @@ export default class HandGestureView {
     if (!element) return
 
     const rect = element.getBoundingClientRect()
+    
     const event = new MouseEvent('click', {
       view: window,
       bubbles: true,
@@ -67,7 +68,6 @@ export default class HandGestureView {
       clientX: rect.left + x,
       clientY: rect.top + y
     })
-
     element.dispatchEvent(event)
   }
 
@@ -126,7 +126,6 @@ export default class HandGestureView {
   }
 
   renderDont({ dontGesture, hands}) {
-    console.log(hands)
     if (hands.length === 1) {
       this.resetRender()
       return

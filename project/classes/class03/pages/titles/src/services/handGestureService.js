@@ -47,7 +47,7 @@ export default class HandGestureService {
     // console.log({ 'ChoseHand: ': chosenHand, 'Pose data: ': poseData })
     const addToPairIfCorrect = chosenHand => {
       const containsHand = poseData.some(finger => {
-        console.log('finger ', finger[2])
+        // console.log('finger ', finger[2])
         // console.log(this.#dont[chosenHand])
         return this.#dont[chosenHand].includes(finger[2])
       })
@@ -64,7 +64,7 @@ export default class HandGestureService {
     console.log(this.#gestureStrings.dont)
     // resultLayer.left.innerText = resultLayer.right.innerText =
     // this.#gestureStrings.dont
-    console.log(poseData)
+    // console.log(poseData)
     pair.clear()
     return this.#gestureStrings.dont
   }
