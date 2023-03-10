@@ -19,6 +19,7 @@ As funcionalidades iniciais fazendo gestos com a mão para mexer na tela é: des
 - Fingerpose
   - Tensorflow.js
     - Mediapipe
+- [pseudo-styler](https://github.com/TSedlar/pseudo-styler)
 
 
 ## 👨‍💻 Autor:

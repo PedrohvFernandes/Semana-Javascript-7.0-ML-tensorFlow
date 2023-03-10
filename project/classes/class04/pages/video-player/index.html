@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSExpert Max - BlinkToPlay</title>
+    <style>
+      body {
+        background-color: darkgray;
+      }
+      video {
+        width: 95%;
+        margin: 10px;
+      }
+      button {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: cornflowerblue;
+        color: white;
+      }
+
+      button:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+        color: white;
+      }
+
+      button:disabled:hover {
+        background-color: brown;
+        /* transition: all 0.5s ease-in-out; */
+      }
+
+      p {
+        text-align: center;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-left: 20px;
+      }
+
+      #hands {
+        pointer-events: none;
+        position: fixed;
+        z-index: 12;
+      }
+
+      .layer {
+        position: fixed;
+        top: -80;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+      }
+      .pose-result {
+        font-size: 100px;
+        text-align: right;
+        padding: 20px 30px 0 0;
+      }
+
+      #pose-result-left {
+        text-align: left;
+      }
+
+      #instruction {
+        display: none;
+      }
+
+      #instruction p {
+        color: brown;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      #warnings {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-left: 20px;
+      }
+
+      #workerReady{
+        color: brown;
+      }
+
+      #workerReadySpan{
+        color: aquamarine;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="hands"></canvas>
+    <div class="button-container">
+      <div>
+        <button type="button" id="init" disabled>
+          Initialize Blink Recognition
+        </button>
+        <output id="status"></output>
+      </div>
+      <div class="warnings">
+        <p>
+          Para funcionar tem que ter ativado a aceleração de hardware pois essa
+          parte da aplicação utiliza webgl e para verificar digite chrome://gpu/
+          no Chrome para verificar se o webgl e a aceleração de hardware estão
+          habilitados.
+        </p>
+        <p>
+          Caso não de para apertar o botão "Initialize Blink Recognition" de uma
+          recarregada na pagina com f5 ou ctrl f5 caso não esteja dando certo
+          somente com o f5. Porque as vezes a lib tensorflow não consegue
+          injetar as dependencias no html, ou seja baixa-las.
+        </p>
+        <p id="workerReady">Quando carregar o modelo do tensorflow ira aparecer um msg aqui:<span id="workerReadySpan"></span> </p>
+        <div id="instruction">
+          <p>1º Piscando com os dois olhos o video da play ou pause</p>
+          <p>2º Piscando com o olho esquerdo, o video volta 10 sec</p>
+          <p>3º Piscando com o olho direito, o video adianta 10 sec</p>
+          <p>
+            Obs: vai depender se o eu navegador tenha worker typemodule ou não.
+            Se tiver ele vai rodar na thread do worker, ou seja, sub threads, se
+            não tiver, vai rodar na main thread, ou seja possa ser que demore um
+            pouco a mais para iniciar do que na thread worker, apesar de que
+            mesmo na thread worker demore uns segundinhos para iniciar também.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- As img ou emojis como resultado de cada gesto que você faz com a mão -->
+    <div id="pose-result-left" class="layer pose-result"></div>
+    <div id="pose-result-right" class="layer pose-result"></div>
+    <video id="video" src="/assets/video.mp4" controls></video>
+    <script src="https://cdn.jsdelivr.net/gh/TSedlar/pseudo-styler@1.0.8/pseudostyler.js"></script>
+    <script src="./src/index.js" type="module"></script>
+  </body>
+</html>
