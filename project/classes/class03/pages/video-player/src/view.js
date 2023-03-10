@@ -1,5 +1,6 @@
 export default class View {
   #btnInit = document.querySelector('#init')
+  #elementInstruction = document.querySelector('#instruction')
   #statusElement = document.querySelector('#status')
   #videoFrameCanvas = document.createElement('canvas')
   #videoElement = document.querySelector('#video')
@@ -48,7 +49,12 @@ export default class View {
   }
 
   configureOnBtnClick(fn) {
-    this.#btnInit.addEventListener('click', fn)
+    this.#btnInit.addEventListener('click', {
+      handleEvent: () => {
+        fn()
+        this.#elementInstruction.style.display = 'block'
+      }
+    })
   }
 
   log(text) {

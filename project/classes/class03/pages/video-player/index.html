@@ -16,9 +16,16 @@
       button {
         margin: 10px;
       }
+
+      p{
+        text-align: center;
+      }
       .button-container {
         display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
+        gap: 10px;
         margin-left: 20px;
       }
 
@@ -44,6 +51,28 @@
       #pose-result-left {
         text-align: left;
       }
+
+      #instruction {
+        display: none;
+      }
+
+      #instruction p {
+        color: brown;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      #warnings{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-left: 20px;
+      }
     </style>
   </head>
 
@@ -55,6 +84,32 @@
           Initialize Blink Recognition
         </button>
         <output id="status"></output>
+      </div>
+      <div class="warnings">
+        <p>
+          Para funcionar tem que ter ativado a aceleração de hardware pois essa
+          parte da aplicação utiliza webgl e para verificar digite chrome://gpu/
+          no Chrome para verificar se o webgl e a aceleração de hardware estão
+          habilitados.
+        </p>
+        <p>
+          Caso não de para apertar o botão "Initialize Blink Recognition" de uma
+          recarregada na pagina com f5 ou ctrl f5 caso não esteja dando certo
+          somente com o f5. Porque as vezes a lib tensorflow não consegue
+          injetar as dependencias no html, ou seja baixa-las.
+        </p>
+        <div id="instruction">
+          <p>1º Piscando com os dois olhos o video da play ou pause</p>
+          <p>2º Piscando com o olho esquerdo, o video volta 10 sec</p>
+          <p>3º Piscando com o olho direito, o video adianta 10 sec</p>
+          <p>
+            Obs: vai depender se o eu navegador tenha worker typemodule ou não.
+            Se tiver ele vai rodar na thread do worker, ou seja, sub threads, se
+            não tiver, vai rodar na main thread, ou seja possa ser que demore um
+            pouco a mais para iniciar do que na thread worker, apesar de que mesmo
+            na thread worker demore uns segundinhos para iniciar também.
+          </p>
+        </div>
       </div>
     </div>
     <!-- As img ou emojis como resultado de cada gesto que você faz com a mão -->
