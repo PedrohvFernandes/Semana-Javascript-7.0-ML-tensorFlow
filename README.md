@@ -27,7 +27,8 @@ As funcionalidades iniciais fazendo gestos com a mão para mexer na tela é: des
 - Tenha uma camera conectada ao pc/notebook e permita o acesso a ela
 
 ## Para testar o projeto final:
-- [clique aqui para V04 versão final](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class04/pages/titles/)
+- [clique aqui para V05 versão final](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class05/pages/titles/)
+- [clique aqui para V04](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class04/pages/titles/)
 - [clique aqui para V03](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class03/pages/titles/)
 - [clique aqui para V02](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class02/pages/titles/)
 - [clique aqui para V01](https://pedrohvfernandes.github.io/Semana-Javascript-7.0-ML-tensorFlow/project/classes/class01/pages/titles/)

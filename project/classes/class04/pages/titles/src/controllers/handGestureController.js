@@ -59,6 +59,17 @@ export default class HandGestureController {
     })
   }
 
+  #dontGestureCombination({ dontGesture, gestureStringsObject, event }) {
+    if (dontGesture === gestureStringsObject[event]) {
+      this.#view.renderDont({ dontGesture })
+    }
+  }
+
+  #checkGestureCombination({ dontGesture, gestureStringsObject, event }) {
+    this.#dontGestureCombination({ dontGesture, gestureStringsObject, event })
+    // Pode vim mais gestos que requerem duas mãos e neles faz a verificação, aqui a gente so passa o gesto que queremos
+  }
+
   async #estimateHands() {
     try {
       // Vamos pegar os dados das mãos e la no service nos tratamos esses dados
@@ -68,8 +79,7 @@ export default class HandGestureController {
 
       if (!hands.length) this.#view.resetRender()
       // Se tiver alguma mão, desenha no canvas, passando elas
-      if(hands?.length) this.#view.drawResults(hands)
-    
+      if (hands?.length) this.#view.drawResults(hands)
 
       // for(const hand of hands) {
       //   console.log(hands)
@@ -87,13 +97,19 @@ export default class HandGestureController {
         gestureStringsObject,
         dontGesture
       } of this.#service.detectGestures(hands)) {
-        
-        if(event === 'click') {
-          if(!clickShouldRun()) return
+        if (event === 'click') {
+          if (!clickShouldRun()) return
           this.#view.clickOnElement(x, y)
         }
-        if(dontGesture === gestureStringsObject[event]){
-          this.#view.renderDont({dontGesture, hands, handDirection})
+        // Caso o gesto precise de duas mãos
+        if (hands.length === 2) {
+          this.#checkGestureCombination({
+            dontGesture,
+            gestureStringsObject,
+            event
+          })
+        } else {
+          this.#view.resetRender()
         }
         // console.log({ gesture })
         // console.log({ event, x, y })
@@ -107,7 +123,7 @@ export default class HandGestureController {
           gestureStrings,
           gestureStringsObject,
           event,
-          hands,
+          hands
         })
       }
     } catch (error) {

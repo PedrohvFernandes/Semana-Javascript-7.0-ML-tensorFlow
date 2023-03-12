@@ -140,12 +140,7 @@ export default class HandGestureView {
     }
   }
 
-  renderDont({ dontGesture, hands}) {
-    if (hands.length === 1) {
-      this.resetRender()
-      return
-    }
-    
+  renderDont({ dontGesture }) {
     this.#resultLayer.left.innerText = this.#resultLayer.right.innerText =
       dontGesture
   }
